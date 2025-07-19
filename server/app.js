@@ -1,10 +1,18 @@
 const express = require('express');
+const connectDB = require('./config/db.config');
 const app = express();
+const cors = require('cors');
 
-app.get('/', (req,res)=> {
-    res.send("Server is up and running !");
-})
+app.use(express.json());
+app.use(cors());
+app.use('/api/auth', require('./routes/user.routes'));
+app.use('/api/recipes', require('./routes/recipes.routes'));
 
-app.listen(3000, () => {
-    console.log("Server is running on http://localhost:3000");
-})
+app.get('/', (req, res) => res.send("Recipe API Backend Running ✅"));
+
+const startServer = async () => {
+  await connectDB();
+  app.listen(3000, () => console.log(`🚀 Server running at http://localhost:3000`));
+};
+
+startServer();
