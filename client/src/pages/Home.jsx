@@ -11,10 +11,11 @@ const Home = () => {
     
     // Use the custom hook for save functionality
     const { isSaved, handleToggleSave, isSaving } = useRecipeSave();
-
+    let count = 0;
     useEffect(() => {
-        setRecipes(sampleRecipes); 
+        // setRecipes(sampleRecipes); 
         fetchRandomRecipes(setLoading, setError, setRecipes);
+        console.log("Fetch Called: ",++count);
     }, []);
 
     return (

@@ -147,9 +147,9 @@ const Navbar = () => {
                 className="flex items-center gap-2 p-2 rounded-full hover:bg-gray-700 transition-colors"
                 aria-label="Profile menu"
             >
-                <div className="w-8 h-8 rounded-full bg-amber-400 object-cover p-1">
-                    {getInitial(user?.username || 'G')}
-                </div>
+<div className="w-10 h-10 rounded-full bg-gray-300 text-white flex items-center justify-center font-semibold">
+  {getInitial(user?.username)}
+</div>
                 <span className="text-sm font-medium">
                 {user?.username || user?.name || "Guest"}
                 </span>

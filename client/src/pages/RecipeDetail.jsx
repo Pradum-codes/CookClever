@@ -17,14 +17,18 @@ const RecipeDetail = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          setLoading(true);
-          const data = await fetchById(id);
-          setRecipe(data);
-          setLoading(false);
+            if (location.state?.recipe) {
+                setRecipe(location.state.recipe);
+                setLoading(false);
+            } else {
+                setLoading(true);
+                const data = await fetchById(id);
+                setRecipe(data);
+                setLoading(false);
+            }
         };
         fetchData();
-        // setRecipe(localRecipe);
-    }, [id]);
+    }, [id, location.state]);
 
     if (loading) return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 p-6">
