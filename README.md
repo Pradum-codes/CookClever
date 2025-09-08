@@ -64,11 +64,19 @@ npm install
 3. **Set Environment Variables**
 Create a .env file in the server/ directory:
 
+### On Server
 ```env
 PORT=3000
-MONGODB_URI=mongodb://localhost:27017/recipe-app
+MONGO_URI=mongodb+srv://<mongo_username>:<db_password>@cluster0.3bermni.mongodb.net
+MONGO_DB=CleverCook
 JWT_SECRET=yourSecretKey
-SPOONACULAR_API_KEY=yourSpoonacularAPIKey
+SPOONACULAR_API_KEY=yourApiKey
+```
+
+### On Client
+```env
+VITE_SPOONACULAR_API_KEY=yourApiKey
+VITE_API_BASE_URL=https://api.spoonacular.com
 ```
 
 4. **Run Backend**
