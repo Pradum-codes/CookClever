@@ -1,12 +1,12 @@
 const axios = require('axios');
 const SavedRecipe = require('../model/savedRecipe.model');
 
-const API_KEY = process.env.RECIPE_API_KEY;
+const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE_URL = 'https://api.spoonacular.com/recipes';
 
 exports.getRandomRecipes = async (req, res) => {
     try {
-        const response = await axios.get(`${BASE_URL}/random?number=1&apiKey=${API_KEY}`);
+        const response = await axios.get(`${BASE_URL}/random?number=9&apiKey=${API_KEY}`);
         res.json(response.data);
     } catch (err) {
         res.status(500).json({ msg: "Error fetching random recipes", err });

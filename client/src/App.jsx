@@ -7,26 +7,29 @@ import Login from "@/pages/auth/Login";
 import Signup from "@/pages/auth/Signup";
 import Favorites from "@/pages/Favorites";
 import Layout from "@/components/Layout";
+import { RecipesProvider } from "./context/RecipeContext";
 
 function App() {
     return (
         <Router>
             <AuthProvider>
-                <Routes>
-                    {/* Public routes */}
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
+                <RecipesProvider>
+                    <Routes>
+                        {/* Public routes */}
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
 
-                    {/* Protected routes wrapped in Layout */}
-                    <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/favorites" element={<Favorites />} />
-                        {/* Add more protected routes as needed */}
-                    </Route>
-                </Routes>
+                        {/* Protected routes wrapped in Layout */}
+                        <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/favorites" element={<Favorites />} />
+                        </Route>
+                    </Routes>
+                </RecipesProvider>
             </AuthProvider>
         </Router>
     );
 }
+
 
 export default App;

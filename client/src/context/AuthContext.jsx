@@ -31,9 +31,12 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password, rememberUser) => {
         try {
             const res = await api.post("/auth/login", { email, password });
-            const { accessToken, user } = res.data;
+            const { token, user } = res.data;
 
-            if(rememberUser && localStorage.setItem("accessToken", accessToken));
+            if (rememberUser) {
+                localStorage.setItem("accessToken", token);
+                localStorage.setItem("user", JSON.stringify(user));
+            }
             setUser(user);
         } catch (err) {
             console.error("Login failed:", err);
