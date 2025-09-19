@@ -6,7 +6,7 @@ const BASE_URL = 'https://api.spoonacular.com/recipes';
 
 exports.getRandomRecipes = async (req, res) => {
     try {
-        const response = await axios.get(`${BASE_URL}/random?number=9&apiKey=${API_KEY}`);
+        const response = await axios.get(`${BASE_URL}/random?number=9&includeNutrition=true&apiKey=${API_KEY}`);
         res.json(response.data);
     } catch (err) {
         res.status(500).json({ msg: "Error fetching random recipes", err });
@@ -24,17 +24,25 @@ exports.getRecipeById = async (req, res) => {
 };
 
 exports.searchRecipesByIngredients = async (req, res) => {
-    const { ingredients } = req.body;
+    const { ingredients, number = 9 } = req.body;
+
+    if (!Array.isArray(ingredients) || ingredients.length === 0) {
+        return res.status(400).json({ msg: "Ingredients array is required" });
+    }
+
     try {
         const response = await axios.get(`${BASE_URL}/findByIngredients`, {
-        params: {
-            ingredients: ingredients.join(','),
-            number: 10,
-            apiKey: API_KEY
-        }
+            params: {
+                ingredients: ingredients.join(','),
+                number,
+                // includeNutrition: true,
+                apiKey: API_KEY,
+            },
         });
+
         res.json(response.data);
     } catch (err) {
+        console.error("[API Error] Spoonacular fetch failed:", err.response?.data || err.message);
         res.status(500).json({ msg: "Error searching recipes", err });
     }
 };
