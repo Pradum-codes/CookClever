@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import Login from "@/pages/auth/Login";
 import Signup from "@/pages/auth/Signup";
 import Favorites from "@/pages/Favorites";
+import History from "./pages/History";
 import Layout from "@/components/Layout";
 import { RecipesProvider } from "./context/RecipeContext";
 import RecipeDetail from "./pages/RecipeDetails";
@@ -27,6 +28,7 @@ function App() {
                             <Route path="/favorites" element={<Favorites />} />
                             <Route path="/recipe/:id" element={<RecipeDetail/>}/>
                             <Route path="/search" element={<SearchRecipes/>}/>
+                            <Route path="/history" element={<History/>}/>
                         </Route>
                     </Routes>
                 </RecipesProvider>

@@ -58,30 +58,12 @@ const Navbar = () => {
                     {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </Button>
 
-                {/* Profile Menu */}
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                            <Avatar className="w-8 h-8">
-                                <AvatarFallback>{getInitial(user?.username || user?.name)}</AvatarFallback>
-                                <AvatarImage src={user?.avatarUrl} />
-                            </Avatar>
-                        </Button>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent align="end" className="w-48">
-                        <DropdownMenuItem asChild>
-                            <Link to="/profile">View Profile</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link to="/settings">Settings</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link to="/account">Account</Link>
-                        </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <Button variant="ghost" size="icon">
+                    <Avatar className="w-8 h-8">
+                        <AvatarFallback>{getInitial(user?.username || user?.name)}</AvatarFallback>
+                        <AvatarImage src={user?.avatarUrl} />
+                    </Avatar>
+                </Button>
             </div>
 
             {/* Mobile Menu */}
@@ -100,9 +82,6 @@ const Navbar = () => {
                     <Link to="/history" className={isActive('/history')} onClick={() => setIsMobileMenuOpen(false)}>
                     History
                     </Link>
-                    <Button variant="outline" onClick={() => setIsMobileMenuOpen(false)}>
-                    {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />} Toggle Theme
-                    </Button>
                     <Button variant="destructive" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
                     Logout
                     </Button>
