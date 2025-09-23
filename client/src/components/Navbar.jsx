@@ -1,19 +1,21 @@
 import { useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Sun, Moon, Menu, X, User } from 'lucide-react';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 import { AuthContext } from "@/context/AuthContext";
+import { useTheme } from '@/context/ThemeContext';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
+    const { theme, setTheme } = useTheme();
 
-    const toggleTheme = () => setDarkMode((prev) => !prev);
+    const toggleTheme = () => {
+        setTheme(theme === "dark" ? "light" : "dark");
+    }
 
     const handleLogout = () => {
         logout();
@@ -26,7 +28,7 @@ const Navbar = () => {
     const getInitial = (name) => (name ? name.trim()[0].toUpperCase() : '?');
 
     return (
-        <nav className="flex items-center justify-between px-6 py-4 shadow bg-white sticky top-0 z-50">
+        <nav className="flex items-center justify-between px-6 py-4 shadow bg-background sticky top-0 z-50">
             <Link to="/" className="text-2xl font-bold text-orange-600">
                 CookClever
             </Link>
@@ -50,7 +52,7 @@ const Navbar = () => {
             {/* Actions */}
             <div className="flex items-center space-x-4">
                 <Button variant="ghost" size="icon" onClick={toggleTheme}>
-                    {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                    {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </Button>
 
                 {/* Mobile Menu Toggle */}
@@ -58,12 +60,10 @@ const Navbar = () => {
                     {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </Button>
 
-                <Button variant="ghost" size="icon">
-                    <Avatar className="w-8 h-8">
-                        <AvatarFallback>{getInitial(user?.username || user?.name)}</AvatarFallback>
-                        <AvatarImage src={user?.avatarUrl} />
-                    </Avatar>
-                </Button>
+                <Avatar className="w-8 h-8">
+                    <AvatarFallback>{getInitial(user?.username || user?.name)}</AvatarFallback>
+                    <AvatarImage src={user?.avatarUrl} />
+                </Avatar>
             </div>
 
             {/* Mobile Menu */}

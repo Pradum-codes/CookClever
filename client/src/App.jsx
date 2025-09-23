@@ -11,10 +11,12 @@ import Layout from "@/components/Layout";
 import { RecipesProvider } from "./context/RecipeContext";
 import RecipeDetail from "./pages/RecipeDetails";
 import SearchRecipes from "./pages/Search";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
     return (
         <Router>
+            <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
             <AuthProvider>
                 <RecipesProvider>
                     <Routes>
@@ -33,6 +35,7 @@ function App() {
                     </Routes>
                 </RecipesProvider>
             </AuthProvider>
+            </ThemeProvider>
         </Router>
     );
 }

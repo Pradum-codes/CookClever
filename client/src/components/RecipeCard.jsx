@@ -79,7 +79,7 @@ export function RecipeCard({
                 <TooltipTrigger asChild>
                     <Card
                         onClick={handleCardClick}
-                        className="bg-amber-50 max-w-5xl group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                        className="bg-background max-w-5xl group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
                     >
                         <CardContent className="p-0">
                             <div className="relative h-72 bg-gray-100 rounded-t-lg overflow-hidden">
