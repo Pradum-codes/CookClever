@@ -1,13 +1,9 @@
-import axios from "axios"
-
-const api = axios.create({
-    baseURL: "http://localhost:3000/api"
-});
+import url from "@/lib/api";
 
 const random = async () => {
     const token = localStorage.getItem('accessToken');
     try {
-        const res = await api.get("/recipes/random", {
+        const res = await url.get("/recipes/random", {
             headers: {
                 Authorization: `Bearer ${token}`
             }

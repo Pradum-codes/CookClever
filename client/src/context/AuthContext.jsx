@@ -1,12 +1,8 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import url from "@/lib/api";
 
 export const AuthContext = createContext();
 
-// Axios instance with baseURL
-const api = axios.create({
-    baseURL: "http://localhost:3000/api",
-});
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -28,15 +24,14 @@ export const AuthProvider = ({ children }) => {
         fetchUser();
     }, []);
 
-    const login = async (email, password, rememberUser) => {
+    const login = async (email, password) => {
         try {
-            const res = await api.post("/auth/login", { email, password });
+            const res = await url.post("/auth/login", { email, password });
             const { token, user } = res.data;
 
-            if (rememberUser) {
-                localStorage.setItem("accessToken", token);
-                localStorage.setItem("user", JSON.stringify(user));
-            }
+            localStorage.setItem("accessToken", token);
+            localStorage.setItem("user", JSON.stringify(user));
+            url.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             setUser(user);
         } catch (err) {
             console.error("Login failed:", err);
@@ -46,6 +41,8 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        delete url.defaults.headers.common["Authorization"];
         setUser(null);
     };
 

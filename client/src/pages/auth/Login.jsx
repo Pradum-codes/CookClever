@@ -14,7 +14,6 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [rememberUser, setRememberUser] = useState(false);
     const navigate = useNavigate();
 
     const { login } = useContext(AuthContext);
@@ -30,7 +29,7 @@ const Login = () => {
                 throw new Error("Please fill in all fields");
             }
 
-            await login(email, password, rememberUser);
+            await login(email, password);
             navigate("/");
         } catch (err) {
             console.error('Login error:', err);
@@ -111,10 +110,6 @@ const Login = () => {
                         </div>
 
                         <div className="flex items-center justify-between text-sm">
-                            <label className="flex items-center space-x-2 cursor-pointer">
-                                <input onChange={() => setRememberUser(!rememberUser)} type="checkbox" className="rounded border-gray-300 focus:ring-orange-500" />
-                                <span className="text-gray-600">Remember me</span>
-                            </label>
                             <Link to="/forgot-password" className="text-orange-600 hover:text-orange-700 font-medium">
                                 Forgot password?
                             </Link>

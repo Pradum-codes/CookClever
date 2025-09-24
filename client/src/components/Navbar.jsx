@@ -64,6 +64,11 @@ const Navbar = () => {
                     <AvatarFallback>{getInitial(user?.username || user?.name)}</AvatarFallback>
                     <AvatarImage src={user?.avatarUrl} />
                 </Avatar>
+
+                {/* Logout Button - visible on all screen sizes */}
+                <Button variant="destructive" onClick={handleLogout}>
+                    Logout
+                </Button>
             </div>
 
             {/* Mobile Menu */}

@@ -1,8 +1,4 @@
-import axios from "axios";
-
-const api = axios.create({
-    baseURL: "http://localhost:3000/api",
-});
+import url from "@/lib/api";
 
 const fetchById = async (id) => {
     const token = localStorage.getItem('accessToken');
@@ -12,7 +8,7 @@ const fetchById = async (id) => {
     }
 
     try {
-        const res = await api.get(`/recipes/${id}`, {
+        const res = await url.get(`/recipes/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

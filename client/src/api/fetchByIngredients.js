@@ -1,8 +1,4 @@
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "http://localhost:3000/api",
-});
+import url from "@/lib/api";
 
 const fetchByIngredients = async (ingredients, setLoading, setError, setRecipes) => {
     const token = localStorage.getItem("accessToken");
@@ -10,7 +6,7 @@ const fetchByIngredients = async (ingredients, setLoading, setError, setRecipes)
     setError(null);
 
     try {
-        const res = await api.post(
+        const res = await url.post(
             "/recipes/search",
             { ingredients, number: 9 }, // body
             {

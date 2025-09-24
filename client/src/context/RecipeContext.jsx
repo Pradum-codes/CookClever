@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import random from "@/api/random";
 import dummy from "@/api/dummy.js";
 
@@ -10,6 +10,7 @@ export const RecipesProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     const fetchRandomRecipes = async () => {
+        setLoading(true);
         try {
             const data = await random();
             // const data = dummy;
@@ -20,10 +21,6 @@ export const RecipesProvider = ({ children }) => {
             setLoading(false);
         }
     };
-
-    useEffect(() => {
-        fetchRandomRecipes();  // Fetch once when app starts
-    }, []);
 
     return (
         <RecipesContext.Provider value={{ randomRecipes, loading, error, fetchRandomRecipes }}>

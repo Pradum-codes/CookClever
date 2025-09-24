@@ -1,4 +1,4 @@
-import axios from "axios";
+import url from "@/lib/api";
 
 const fetchFavorites = async (userId) => {
     const token = localStorage.getItem("accessToken");
@@ -9,7 +9,7 @@ const fetchFavorites = async (userId) => {
     }
 
     try {
-        const res = await axios.post(`http://localhost:3000/api/recipes/favorites?userId=${userId}`, {}, {
+        const res = await url.post(`recipes/favorites?userId=${userId}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
