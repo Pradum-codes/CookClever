@@ -21,10 +21,8 @@ function Favorites() {
             try {
                 setLoading(true);
                 const data = await fetchFavorites(user.id);
-                console.log("Fetched favorites:", data);
 
                 setSavedRecipes(data?.recipes || []);
-                console.log(data);
             } catch (err) {
                 console.error("Error fetching favorites:", err);
                 setError("Failed to load favorite recipes");

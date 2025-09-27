@@ -168,7 +168,7 @@ function SearchRecipes() {
                                     dietaryTags={recipe.diets || []}
                                     vegetarian={recipe.vegetarian}
                                     isSaved={false}
-                                    onSave={() => console.log("Save handler for:", recipe.id)}
+                                    // onSave={() => console.log("Save handler for:", recipe.id)}
                                     nutrition={{
                                         calories: recipe.nutrition?.calories || "N/A",
                                         protein: recipe.nutrition?.protein || "N/A",

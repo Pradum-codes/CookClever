@@ -53,7 +53,6 @@ const Home = () => {
                 dietaryTags={recipe.diets || []}
                 vegetarian={recipe.vegetarian}
                 isSaved={false}
-                onSave={() => console.log("Save handler for:", recipe.id)}
                 nutrition={nutritionData}
                 usedIngredients={recipe.usedIngredients || []}
                 missedIngredients={recipe.missedIngredients || []}

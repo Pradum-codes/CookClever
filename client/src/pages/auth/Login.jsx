@@ -22,8 +22,6 @@ const Login = () => {
         e.preventDefault();
         setError("");
         setIsLoading(true);
-        console.log('Login attempt started with:', { email, password: '***' });
-
         try {
             if (!email || !password) {
                 throw new Error("Please fill in all fields");
@@ -36,7 +34,6 @@ const Login = () => {
             setError(err.message || "Login failed. Please try again.");
         } finally {
             setIsLoading(false);
-            console.log('Login process completed');
         }
     };
 
