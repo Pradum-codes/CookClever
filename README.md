@@ -51,8 +51,8 @@ CookClever is a full-stack MERN application that helps users discover delicious 
 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/your-username/recipe-app.git
-cd recipe-app
+git clone https://github.com/Pradum-codes/CookClever.git
+cd CookClever
 ```
 
 2. **Install Backend Dependencies**
@@ -75,8 +75,7 @@ SPOONACULAR_API_KEY=yourApiKey
 
 ### On Client
 ```env
-VITE_SPOONACULAR_API_KEY=yourApiKey
-VITE_API_BASE_URL=https://api.spoonacular.com
+VITE_SERVER=SERVER_URL
 ```
 
 4. **Run Backend**
