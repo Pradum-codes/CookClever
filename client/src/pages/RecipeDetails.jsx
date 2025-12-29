@@ -60,14 +60,14 @@ const RecipeDetail = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 p-6">
+        <div className="min-h-screen bg-background text-foreground p-6">
             <div className="max-w-6xl mx-auto space-y-8">
                 {/* Header Section */}
                 <div className="text-center space-y-4">
-                    <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                    <h1 className="text-4xl font-bold tracking-tight text-primary">
                         {recipe.title}
                     </h1>
-                    <div className="flex justify-center items-center gap-6 text-gray-600">
+                    <div className="flex justify-center items-center gap-6 text-muted-foreground">
                         {recipe.readyInMinutes && (
                             <div className="flex items-center gap-2">
                                 <Clock className="h-5 w-5" />
@@ -86,9 +86,9 @@ const RecipeDetail = () => {
                 {/* Image and Summary */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
-                        <img 
-                            src={recipe.image} 
-                            alt={recipe.title} 
+                        <img
+                            src={recipe.image}
+                            alt={recipe.title}
                             className="w-full h-80 object-cover rounded-xl shadow-lg"
                             onError={(e) => {
                                 e.target.style.display = 'none';
@@ -97,10 +97,10 @@ const RecipeDetail = () => {
                     </div>
                     <div className="space-y-4">
                         <h2 className="text-2xl font-semibold text-gray-800">About this recipe</h2>
-                        <div 
+                        <div
                             className="text-gray-600 leading-relaxed"
-                            dangerouslySetInnerHTML={{ 
-                                __html: recipe.summary?.replace(/<\/?b>/g, '').replace(/<\/?a[^>]*>/g, '') || 'No summary available.' 
+                            dangerouslySetInnerHTML={{
+                                __html: recipe.summary?.replace(/<\/?b>/g, '').replace(/<\/?a[^>]*>/g, '') || 'No summary available.'
                             }}
                         />
                     </div>
@@ -110,7 +110,7 @@ const RecipeDetail = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Available Ingredients */}
                     {usedIngredients.length > 0 && (
-                        <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+                        <Card className="shadow-lg border-border bg-card">
                             <CardHeader className="pb-4">
                                 <CardTitle className="text-xl text-green-700 flex items-center gap-2">
                                     <CheckCircle className="h-6 w-6" />
@@ -132,7 +132,7 @@ const RecipeDetail = () => {
 
                     {/* Missing Ingredients */}
                     {missedIngredients.length > 0 && (
-                        <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+                        <Card className="shadow-lg border-border bg-card">
                             <CardHeader className="pb-4">
                                 <CardTitle className="text-xl text-red-700 flex items-center gap-2">
                                     <XCircle className="h-6 w-6" />
@@ -154,15 +154,15 @@ const RecipeDetail = () => {
 
                     {/* All Ingredients (fallback for random recipes) */}
                     {usedIngredients.length === 0 && missedIngredients.length === 0 && (
-                        <Card className="shadow-lg border-0 bg-white/80 backdrop-blur lg:col-span-2">
+                        <Card className="shadow-lg border-border bg-card lg:col-span-2">
                             <CardHeader className="pb-4">
-                                <CardTitle className="text-xl text-gray-700">All Ingredients</CardTitle>
+                                <CardTitle className="text-xl text-foreground">All Ingredients</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     {recipe.extendedIngredients?.map((ingredient, idx) => (
-                                        <li key={idx} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
-                                            <span className="text-gray-700">{ingredient.original}</span>
+                                        <li key={idx} className="flex items-center gap-3 p-2 bg-muted rounded-lg">
+                                            <span className="text-muted-foreground">{ingredient.original}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -172,18 +172,18 @@ const RecipeDetail = () => {
                 </div>
 
                 {/* Instructions */}
-                <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+                <Card className="shadow-lg border-border bg-card">
                     <CardHeader className="pb-4">
-                        <CardTitle className="text-2xl text-gray-800">Instructions</CardTitle>
+                        <CardTitle className="text-2xl text-foreground">Instructions</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ol className="space-y-4">
                             {recipe.analyzedInstructions?.[0]?.steps?.map((step, idx) => (
                                 <li key={idx} className="flex gap-4">
-                                    <Badge variant="outline" className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center">
+                                    <Badge variant="outline" className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center border-border text-foreground">
                                         {idx + 1}
                                     </Badge>
-                                    <p className="text-gray-700 leading-relaxed pt-1">{step.step}</p>
+                                    <p className="text-muted-foreground leading-relaxed pt-1">{step.step}</p>
                                 </li>
                             ))}
                         </ol>

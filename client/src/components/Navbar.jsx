@@ -29,13 +29,13 @@ const Navbar = () => {
 
     return (
         <nav className="flex items-center justify-between px-6 py-4 shadow bg-background sticky top-0 z-50">
-            <Link to="/" className="text-2xl font-bold text-orange-600">
+            <Link to="/dashboard" className="text-2xl font-bold text-orange-600">
                 CookClever
             </Link>
 
-        {/* Desktop Menu */}
+            {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-6">
-                <Link to="/" className={isActive('/')}>
+                <Link to="/dashboard" className={isActive('/dashboard')}>
                     Home
                 </Link>
                 <Link to="/search" className={isActive('/search')}>
@@ -60,10 +60,12 @@ const Navbar = () => {
                     {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </Button>
 
-                <Avatar className="w-8 h-8">
-                    <AvatarFallback>{getInitial(user?.username || user?.name)}</AvatarFallback>
-                    <AvatarImage src={user?.avatarUrl} />
-                </Avatar>
+                <Link to="/profile">
+                    <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-orange-500 transition-all">
+                        <AvatarFallback>{getInitial(user?.username || user?.name)}</AvatarFallback>
+                        <AvatarImage src={user?.avatarUrl} />
+                    </Avatar>
+                </Link>
 
                 {/* Logout Button - visible on all screen sizes */}
                 <Button variant="destructive" onClick={handleLogout}>
@@ -73,24 +75,24 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                <div className="absolute top-full left-0 right-0 bg-white border-t shadow-md md:hidden">
-                <div className="flex flex-col items-center py-4 space-y-3">
-                    <Link to="/" className={isActive('/')} onClick={() => setIsMobileMenuOpen(false)}>
-                    Home
-                    </Link>
-                    <Link to="/search" className={isActive('/search')} onClick={() => setIsMobileMenuOpen(false)}>
-                    Search
-                    </Link>
-                    <Link to="/favorites" className={isActive('/favorites')} onClick={() => setIsMobileMenuOpen(false)}>
-                    Favorites
-                    </Link>
-                    <Link to="/history" className={isActive('/history')} onClick={() => setIsMobileMenuOpen(false)}>
-                    History
-                    </Link>
-                    <Button variant="destructive" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
-                    Logout
-                    </Button>
-                </div>
+                <div className="absolute top-full left-0 right-0 bg-background border-t shadow-md md:hidden">
+                    <div className="flex flex-col items-center py-4 space-y-3">
+                        <Link to="/dashboard" className={isActive('/dashboard')} onClick={() => setIsMobileMenuOpen(false)}>
+                            Home
+                        </Link>
+                        <Link to="/search" className={isActive('/search')} onClick={() => setIsMobileMenuOpen(false)}>
+                            Search
+                        </Link>
+                        <Link to="/favorites" className={isActive('/favorites')} onClick={() => setIsMobileMenuOpen(false)}>
+                            Favorites
+                        </Link>
+                        <Link to="/history" className={isActive('/history')} onClick={() => setIsMobileMenuOpen(false)}>
+                            History
+                        </Link>
+                        <Button variant="destructive" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
+                            Logout
+                        </Button>
+                    </div>
                 </div>
             )}
         </nav>

@@ -28,7 +28,7 @@ const Login = () => {
             }
 
             await login(email, password);
-            navigate("/");
+            navigate("/dashboard");
         } catch (err) {
             console.error('Login error:', err);
             setError(err.message || "Login failed. Please try again.");
@@ -38,22 +38,22 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-orange-200 rounded-full opacity-20 animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-amber-200 rounded-full opacity-20 animate-pulse delay-1000"></div>
-                <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-red-200 rounded-full opacity-20 animate-pulse delay-500"></div>
+                <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-orange-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-red-500/20 rounded-full blur-3xl animate-pulse delay-500"></div>
             </div>
 
-            <Card className="w-full max-w-md relative z-10 shadow-2xl border-0 bg-white/80 backdrop-blur-md">
+            <Card className="w-full max-w-md relative z-10 shadow-2xl border-border bg-card/80 backdrop-blur-md">
                 <CardHeader className="text-center pb-6">
-                    <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-red-500 shadow-lg">
-                        <ChefHat className="h-8 w-8 text-white" />
+                    <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-lg">
+                        <ChefHat className="h-8 w-8 text-primary-foreground" />
                     </div>
-                    <CardTitle className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                    <CardTitle className="text-3xl font-bold text-foreground">
                         Welcome to CookClever
                     </CardTitle>
-                    <CardDescription className="text-lg text-gray-600 mt-2">
+                    <CardDescription className="text-lg text-muted-foreground mt-2">
                         Sign in to discover and save amazing recipes
                     </CardDescription>
                 </CardHeader>

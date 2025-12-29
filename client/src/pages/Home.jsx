@@ -37,7 +37,7 @@ const Home = () => {
   return (
     <div className="p-6">
       {randomRecipes.length === 0 ? (
-        <div className="text-gray-500 text-center py-10">No recipes found.</div>
+        <div className="text-muted-foreground text-center py-10">No recipes found.</div>
       ) : (
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {randomRecipes.map((recipe) => {

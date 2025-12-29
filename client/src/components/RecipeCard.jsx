@@ -79,10 +79,10 @@ export function RecipeCard({
                 <TooltipTrigger asChild>
                     <Card
                         onClick={handleCardClick}
-                        className="bg-background max-w-5xl group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                        className="bg-card w-full max-w-5xl group cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border-border"
                     >
                         <CardContent className="p-0">
-                            <div className="relative h-72 bg-gray-100 rounded-t-lg overflow-hidden">
+                            <div className="relative h-72 bg-muted rounded-t-lg overflow-hidden">
                                 <img
                                     src={image || "/placeholder.svg"}
                                     alt={title}
@@ -95,7 +95,7 @@ export function RecipeCard({
                                     <div className="absolute top-2 left-2">
                                         <Badge
                                             variant="secondary"
-                                            className="bg-green-100 text-green-800 gap-1"
+                                            className="bg-green-100 text-green-800 gap-1 dark:bg-green-900 dark:text-green-100"
                                         >
                                             <Leaf className="h-3 w-3" />
                                             Vegetarian
@@ -105,13 +105,13 @@ export function RecipeCard({
                             </div>
 
                             <div className="p-4 space-y-3">
-                                <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-orange-600 transition-colors">
+                                <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors text-card-foreground">
                                     {title}
                                 </h3>
 
                                 <div className="flex flex-wrap gap-1">
                                     {dietaryTags.map((diet) => (
-                                        <Badge key={diet} variant="outline" className="text-xs">
+                                        <Badge key={diet} variant="outline" className="text-xs border-border text-muted-foreground">
                                             {diet}
                                         </Badge>
                                     ))}
@@ -128,11 +128,10 @@ export function RecipeCard({
                                         variant={isSaved ? "default" : "outline"}
                                         size="sm"
                                         disabled={saving || isLoading}
-                                        className={`gap-1 transition-all ${
-                                            isSaved
-                                                ? "bg-red-500 hover:bg-red-600 text-white"
-                                                : "hover:bg-red-50 hover:text-red-600 hover:border-red-200"
-                                        }`}
+                                        className={`gap-1 transition-all ${isSaved
+                                                ? "bg-destructive hover:bg-destructive/90 text-destructive-foreground"
+                                                : "hover:bg-destructive/10 hover:text-destructive hover:border-destructive/50"
+                                            }`}
                                     >
                                         {saving ? (
                                             <>
