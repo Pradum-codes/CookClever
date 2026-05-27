@@ -33,7 +33,6 @@ function App() {
                                 <Route path="/favorites" element={<Favorites />} />
                                 <Route path="/recipe/:id" element={<RecipeDetail />} />
                                 <Route path="/search" element={<SearchRecipes />} />
-                                <Route path="/search" element={<SearchRecipes />} />
                                 <Route path="/history" element={<History />} />
                                 <Route path="/profile" element={<Profile />} />
                             </Route>

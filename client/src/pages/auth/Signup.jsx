@@ -56,7 +56,7 @@ const Signup = () => {
         setIsLoading(true);
 
         try {
-            const response = await signup({ username, email, password });
+            await signup({ username, email, password });
             setIsLoading(false);
             navigate("/dashboard");
         } catch (err) {

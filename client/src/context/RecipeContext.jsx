@@ -1,6 +1,5 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState } from "react";
 import random from "@/api/random";
-import dummy from "@/api/dummy.js";
 
 export const RecipesContext = createContext();
 
@@ -13,7 +12,6 @@ export const RecipesProvider = ({ children }) => {
         setLoading(true);
         try {
             const data = await random();
-            // const data = dummy;
             setRandomRecipes(data.recipes || []);
         } catch (err) {
             setError(err.message);

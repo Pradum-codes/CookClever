@@ -1,4 +1,5 @@
 import url from "@/lib/api";
+import dummy from "@/api/dummy";
 
 const fetchByIngredients = async (ingredients, setLoading, setError, setRecipes) => {
     const token = localStorage.getItem("accessToken");
@@ -6,6 +7,24 @@ const fetchByIngredients = async (ingredients, setLoading, setError, setRecipes)
     setError(null);
 
     try {
+        if (import.meta.env.VITE_USE_DUMMY !== "false") {
+            const normalized = ingredients.map((item) => item.trim().toLowerCase()).filter(Boolean);
+            const matched = (dummy.recipes || [])
+                .filter((recipe) => {
+                    const pool = [
+                        recipe.title || "",
+                        ...(recipe.extendedIngredients || []).map((ing) => ing.name || ing.original || ""),
+                    ]
+                        .join(" ")
+                        .toLowerCase();
+                    return normalized.every((ing) => pool.includes(ing));
+                })
+                .slice(0, 9);
+
+            setRecipes(matched);
+            return matched;
+        }
+
         const res = await url.post(
             "/recipes/search",
             { ingredients, number: 9 }, // body
