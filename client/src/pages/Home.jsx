@@ -7,7 +7,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchRandomRecipes();
-  }, []);
+  }, [fetchRandomRecipes]);
 
   if (loading) return <p>Loading recipes...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -47,6 +47,7 @@ const Home = () => {
               <RecipeCard
                 key={recipe.id}
                 id={recipe.id}
+                recipeData={recipe}
                 title={recipe.title}
                 image={recipe.image}
                 likes={recipe.aggregateLikes || 0}

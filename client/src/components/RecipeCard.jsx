@@ -22,6 +22,7 @@ export function RecipeCard({
     nutrition,
     usedIngredients,
     missedIngredients,
+    recipeData,
     isLoading = false,
 }) {
     const navigate = useNavigate();
@@ -46,7 +47,17 @@ export function RecipeCard({
 
         try {
             setSaving(true);
-            await saveRecipe(user.id, id);
+            const payload = recipeData || {
+                id,
+                title,
+                image,
+                aggregateLikes: likes,
+                diets: dietaryTags,
+                vegetarian,
+                usedIngredients: usedIngredients || [],
+                missedIngredients: missedIngredients || [],
+            };
+            await saveRecipe(user.id, id, payload);
             if (onSave) onSave(id);
         } catch (err) {
             console.error("Failed to save recipe:", err);

@@ -1,6 +1,6 @@
 import url from "@/lib/api";
 
-const saveRecipe = async (userId, recipeId) => {
+const saveRecipe = async (userId, recipeId, recipeData = null) => {
     const token = localStorage.getItem("accessToken");
 
     if (!userId || !token) {
@@ -11,7 +11,7 @@ const saveRecipe = async (userId, recipeId) => {
     try {
         const res = await url.post(
         "/recipes/save",
-        { userId, recipeId },
+        { userId, recipeId, recipeData },
         {
             headers: {
                 Authorization: `Bearer ${token}`,

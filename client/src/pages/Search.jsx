@@ -162,6 +162,7 @@ function SearchRecipes() {
                                     <RecipeCard
                                         key={recipe.id}
                                         id={recipe.id}
+                                        recipeData={recipe}
                                         title={recipe.title}
                                         image={recipe.image}
                                         likes={recipe.aggregateLikes || 0}
