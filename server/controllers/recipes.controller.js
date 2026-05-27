@@ -9,7 +9,7 @@ exports.getRandomRecipes = async (req, res) => {
         const response = await axios.get(`${BASE_URL}/random?number=9&includeNutrition=true&apiKey=${API_KEY}`);
         res.json(response.data);
     } catch (err) {
-        res.status(500).json({ msg: "Error fetching random recipes", err });
+        res.status(500).json({ msg: "Error fetching random recipes" });
     }
 };
 
@@ -19,7 +19,7 @@ exports.getRecipeById = async (req, res) => {
         const response = await axios.get(`${BASE_URL}/${id}/information?apiKey=${API_KEY}`);
         res.json(response.data);
     } catch (err) {
-        res.status(500).json({ msg: "Error fetching recipe by ID", err });
+        res.status(500).json({ msg: "Error fetching recipe by ID" });
     }
 };
 
@@ -42,29 +42,23 @@ exports.searchRecipesByIngredients = async (req, res) => {
         res.json(response.data);
     } catch (err) {
         console.error("[API Error] Spoonacular fetch failed:", err.response?.data || err.message);
-        res.status(500).json({ msg: "Error searching recipes", err });
+        res.status(500).json({ msg: "Error searching recipes" });
     }
 };
 
 exports.saveRecipeForUser = async (req, res) => {
     try {
-        const { userId, recipeId } = req.body;
+        const { userId, recipeId, recipeData } = req.body;
 
         if (!userId || !recipeId) {
             return res.status(400).json({ message: "userId and recipeId are required" });
         }
 
-        const existing = await SavedRecipe.findOne({ user: userId, recipeId });
-        if (existing) {
-            return res.status(200).json({ message: "Recipe already saved", saved: existing });
-        }
-
-        const newSavedRecipe = new SavedRecipe({
-            recipeId,
-            user: userId,
-        });
-
-        const saved = await newSavedRecipe.save();
+        const saved = await SavedRecipe.findOneAndUpdate(
+            { user: userId, recipeId },
+            { $set: { recipeData: recipeData || null }, $setOnInsert: { user: userId, recipeId } },
+            { new: true, upsert: true }
+        );
         res.status(201).json({ message: "Recipe saved successfully", saved });
     } catch (err) {
         console.error("Error saving recipe:", err);
@@ -76,19 +70,39 @@ exports.getFavorites = async (req, res) => {
     const { userId } = req.query;
 
     try {
+        if (!userId) {
+            return res.status(400).json({ msg: "userId is required" });
+        }
+
         const favorites = await SavedRecipe.find({ user: userId });
+        const recipes = [];
+        const missingRecipeIds = [];
 
-        const recipePromises = favorites.map(fav => 
-            axios.get(`https://api.spoonacular.com/recipes/${fav.recipeId}/information?apiKey=${API_KEY}`)
-        );
+        favorites.forEach((fav) => {
+            if (fav.recipeData) {
+                recipes.push(fav.recipeData);
+            } else {
+                missingRecipeIds.push(fav.recipeId);
+            }
+        });
 
-        const recipeResponses = await Promise.all(recipePromises);
-        const recipes = recipeResponses.map(response => response.data);
+        // Backward-compatible fallback for older saved records that do not have cached recipe data.
+        if (missingRecipeIds.length > 0 && API_KEY) {
+            const recipePromises = missingRecipeIds.map((id) =>
+                axios.get(`${BASE_URL}/${id}/information?apiKey=${API_KEY}`)
+            );
+            const recipeResponses = await Promise.allSettled(recipePromises);
+            recipeResponses.forEach((result) => {
+                if (result.status === "fulfilled") {
+                    recipes.push(result.value.data);
+                }
+            });
+        }
 
         res.status(200).json({ recipes });
     } catch (err) {
         console.error("Error fetching favorites:", err);
-        res.status(500).json({ msg: "Error fetching favorites", err });
+        res.status(500).json({ msg: "Error fetching favorites" });
     }
 };
 
